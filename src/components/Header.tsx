@@ -9,9 +9,9 @@ const Header = () => {
         {/* Logo */}
         <div className="flex items-center">
           <img 
-            src="/FUN Profile.jpg" 
-            alt="FUN Profile Logo" 
-            className="h-10 object-contain"
+            src="/FUN_Profile.jpg" 
+            alt="FUN Profile" 
+            className="h-10 w-10 object-cover rounded-full"
           />
         </div>
 
