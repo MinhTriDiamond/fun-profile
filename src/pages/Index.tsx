@@ -1,5 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 import Header from "@/components/Header";
 import LeftSidebar from "@/components/LeftSidebar";
 import RightSidebar from "@/components/RightSidebar";
@@ -7,6 +10,15 @@ import CreatePost from "@/components/CreatePost";
 import PostCard from "@/components/PostCard";
 
 const Index = () => {
+  const navigate = useNavigate();
+  const { user, isGuest, session } = useAuth();
+
+  useEffect(() => {
+    if (session) {
+      navigate('/');
+    }
+  }, [session, navigate]);
+
   const { data: posts, isLoading, refetch } = useQuery({
     queryKey: ["posts"],
     queryFn: async () => {
@@ -36,7 +48,7 @@ const Index = () => {
         {/* Center Feed */}
         <main className="flex-1 ml-60 mr-72 py-4 px-8">
           <div className="max-w-2xl mx-auto space-y-4">
-            <CreatePost onPostCreated={refetch} />
+            {user && !isGuest && <CreatePost onPostCreated={refetch} />}
             
             {isLoading && (
               <div className="text-center py-8 text-muted-foreground">

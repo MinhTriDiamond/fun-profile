@@ -1,7 +1,10 @@
 import { ThumbsUp, MessageCircle, Share2, MoreHorizontal } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "@/hooks/use-toast";
 
 interface PostCardProps {
   id: string;
@@ -26,6 +29,29 @@ const PostCard = ({
   comments,
   shares,
 }: PostCardProps) => {
+  const navigate = useNavigate();
+  const { user, isGuest } = useAuth();
+
+  const handleInteraction = (action: string) => {
+    if (!user || isGuest) {
+      toast({
+        title: "Login Required",
+        description: `Please log in to ${action}`,
+        action: (
+          <Button variant="default" size="sm" onClick={() => navigate('/auth')}>
+            Log In
+          </Button>
+        ),
+      });
+      return;
+    }
+    // TODO: Implement actual interaction logic
+    toast({
+      title: "Coming soon",
+      description: `${action} functionality will be available soon!`,
+    });
+  };
+
   const getInitials = (name: string) => {
     return name
       .split(" ")
@@ -83,15 +109,27 @@ const PostCard = ({
 
       <CardFooter className="pt-0 border-t">
         <div className="flex w-full gap-1">
-          <Button variant="ghost" className="flex-1 gap-2 hover:bg-nav-hover">
+          <Button 
+            variant="ghost" 
+            className="flex-1 gap-2 hover:bg-nav-hover"
+            onClick={() => handleInteraction("like this post")}
+          >
             <ThumbsUp className="h-4 w-4" />
             Like
           </Button>
-          <Button variant="ghost" className="flex-1 gap-2 hover:bg-nav-hover">
+          <Button 
+            variant="ghost" 
+            className="flex-1 gap-2 hover:bg-nav-hover"
+            onClick={() => handleInteraction("comment on this post")}
+          >
             <MessageCircle className="h-4 w-4" />
             Comment
           </Button>
-          <Button variant="ghost" className="flex-1 gap-2 hover:bg-nav-hover">
+          <Button 
+            variant="ghost" 
+            className="flex-1 gap-2 hover:bg-nav-hover"
+            onClick={() => handleInteraction("share this post")}
+          >
             <Share2 className="h-4 w-4" />
             Share
           </Button>
