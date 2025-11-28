@@ -3,9 +3,10 @@ import { Image, Video, Smile } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useEffect } from "react";
 
 interface CreatePostProps {
   onPostCreated?: () => void;
@@ -14,7 +15,26 @@ interface CreatePostProps {
 const CreatePost = ({ onPostCreated }: CreatePostProps) => {
   const [content, setContent] = useState("");
   const [isPosting, setIsPosting] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string>("");
   const { toast } = useToast();
+
+  useEffect(() => {
+    const fetchUserAvatar = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data } = await supabase
+          .from('profiles')
+          .select('avatar_url')
+          .eq('id', user.id)
+          .single();
+        
+        if (data?.avatar_url) {
+          setAvatarUrl(data.avatar_url);
+        }
+      }
+    };
+    fetchUserAvatar();
+  }, []);
 
   const handlePost = async () => {
     if (!content.trim()) {
@@ -70,8 +90,9 @@ const CreatePost = ({ onPostCreated }: CreatePostProps) => {
       <CardContent className="pt-6">
         <div className="flex gap-3">
           <Avatar>
+            <AvatarImage src={avatarUrl} />
             <AvatarFallback className="bg-primary/10 text-primary">
-              YU
+              U
             </AvatarFallback>
           </Avatar>
           <Textarea
