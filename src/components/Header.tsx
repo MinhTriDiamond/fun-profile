@@ -66,8 +66,8 @@ const Header = () => {
         <div className="flex items-center gap-2">
           {user && !isGuest ? (
             <>
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5 text-yellow-500" />
+              <Button variant="ghost" size="icon" className="relative group hover:bg-primary">
+                <Bell className="h-5 w-5 text-yellow-500 group-hover:text-white" />
                 <span className="absolute top-1 right-1 h-2 w-2 bg-destructive rounded-full" />
               </Button>
               <DropdownMenu>
