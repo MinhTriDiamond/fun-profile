@@ -180,6 +180,10 @@ export type Database = {
           friend_count: number | null
           honor_points_balance: number | null
           id: string
+          total_comments_received: number | null
+          total_posts: number | null
+          total_reactions_received: number | null
+          total_shares_received: number | null
           username: string | null
           wallet_address: string | null
         }
@@ -190,6 +194,10 @@ export type Database = {
           friend_count?: number | null
           honor_points_balance?: number | null
           id: string
+          total_comments_received?: number | null
+          total_posts?: number | null
+          total_reactions_received?: number | null
+          total_shares_received?: number | null
           username?: string | null
           wallet_address?: string | null
         }
@@ -200,6 +208,10 @@ export type Database = {
           friend_count?: number | null
           honor_points_balance?: number | null
           id?: string
+          total_comments_received?: number | null
+          total_posts?: number | null
+          total_reactions_received?: number | null
+          total_shares_received?: number | null
           username?: string | null
           wallet_address?: string | null
         }
