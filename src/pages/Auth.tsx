@@ -124,8 +124,12 @@ const Auth = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--primary)/0.7)] p-4">
       <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Welcome to FUN Profile</CardTitle>
+        <CardHeader className="flex flex-col items-center">
+          <img 
+            src="/FUN_Profile.jpg" 
+            alt="FUN Profile" 
+            className="h-[60px] w-[60px] object-cover rounded-full mb-2"
+          />
           <CardDescription>Sign in or create an account to continue</CardDescription>
         </CardHeader>
         <CardContent>
