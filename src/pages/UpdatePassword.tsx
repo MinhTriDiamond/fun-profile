@@ -57,7 +57,12 @@ const UpdatePassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/20 to-accent/20 p-4">
       <Card className="w-full max-w-md">
-        <CardHeader>
+        <CardHeader className="flex flex-col items-center">
+          <img 
+            src="/FUN_Profile.jpg" 
+            alt="FUN Profile" 
+            className="h-[60px] w-[60px] object-cover rounded-full mb-2"
+          />
           <CardTitle>Create New Password</CardTitle>
           <CardDescription>Enter your new password below</CardDescription>
         </CardHeader>
