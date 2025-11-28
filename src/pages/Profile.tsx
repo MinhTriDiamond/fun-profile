@@ -13,6 +13,7 @@ import { Edit, Upload, Medal, FileText, Users } from 'lucide-react';
 import Header from '@/components/Header';
 import LeftSidebar from '@/components/LeftSidebar';
 import PostCard from '@/components/PostCard';
+import HonorBoardCard from '@/components/HonorBoardCard';
 
 const Profile = () => {
   const { user } = useAuth();
@@ -262,33 +263,16 @@ const Profile = () => {
                 </Dialog>
               </div>
 
-              {/* Stats Cards */}
-              <div className="grid grid-cols-3 gap-4 mt-6">
-                <Card className="bg-gradient-to-br from-accent/20 to-accent/5">
-                  <CardContent className="pt-6 text-center">
-                    <Medal className="h-8 w-8 mx-auto text-accent mb-2" />
-                    <p className="text-4xl font-bold text-accent">
-                      {profile.honor_points_balance?.toLocaleString() || 0}
-                    </p>
-                    <p className="text-sm text-muted-foreground">Honor Points</p>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="pt-6 text-center">
-                    <FileText className="h-8 w-8 mx-auto text-primary mb-2" />
-                    <p className="text-4xl font-bold">{posts.length}</p>
-                    <p className="text-sm text-muted-foreground">Total Posts</p>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="pt-6 text-center">
-                    <Users className="h-8 w-8 mx-auto text-primary mb-2" />
-                    <p className="text-4xl font-bold">{profile.friend_count || 0}</p>
-                    <p className="text-sm text-muted-foreground">Friends</p>
-                  </CardContent>
-                </Card>
+              {/* Honor Board */}
+              <div className="mt-6">
+                <HonorBoardCard
+                  totalPosts={profile.total_posts || 0}
+                  totalCommentsReceived={profile.total_comments_received || 0}
+                  totalReactionsReceived={profile.total_reactions_received || 0}
+                  totalSharesReceived={profile.total_shares_received || 0}
+                  friendCount={profile.friend_count || 0}
+                  honorPointsBalance={profile.honor_points_balance || 0}
+                />
               </div>
             </CardContent>
           </Card>
